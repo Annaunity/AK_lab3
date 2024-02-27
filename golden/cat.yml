@@ -1,0 +1,56 @@
+in_source: |-
+  _start:     ld IN
+              st OUT
+              jmp _start
+in_stdin: |-
+  Hello
+
+  World
+out_code: |-
+  [{"opcode": "ld", "operand": 1000},
+   {"opcode": "st", "operand": 1001},
+   {"opcode": "jmp", "operand": 0}]
+out_stdout: |
+  source LoC: 3 code instr: 3
+  ============================================================
+out_log: |
+  DEBUG   machine:simulation       1. IP:    1 ADDR: 1000 DATA:       72 ACC:       72; ld 1000
+  DEBUG   machine:simulation       2. IP:    2 ADDR: 1001 DATA:       72 ACC:       72; st 1001
+  DEBUG   machine:simulation       3. IP:    0 ADDR:    2 DATA:  (instr) ACC:       72; jmp 0
+  DEBUG   machine:simulation       4. IP:    1 ADDR: 1000 DATA:      101 ACC:      101; ld 1000
+  DEBUG   machine:simulation       5. IP:    2 ADDR: 1001 DATA:      101 ACC:      101; st 1001
+  DEBUG   machine:simulation       6. IP:    0 ADDR:    2 DATA:  (instr) ACC:      101; jmp 0
+  DEBUG   machine:simulation       7. IP:    1 ADDR: 1000 DATA:      108 ACC:      108; ld 1000
+  DEBUG   machine:simulation       8. IP:    2 ADDR: 1001 DATA:      108 ACC:      108; st 1001
+  DEBUG   machine:simulation       9. IP:    0 ADDR:    2 DATA:  (instr) ACC:      108; jmp 0
+  DEBUG   machine:simulation      10. IP:    1 ADDR: 1000 DATA:      108 ACC:      108; ld 1000
+  DEBUG   machine:simulation      11. IP:    2 ADDR: 1001 DATA:      108 ACC:      108; st 1001
+  DEBUG   machine:simulation      12. IP:    0 ADDR:    2 DATA:  (instr) ACC:      108; jmp 0
+  DEBUG   machine:simulation      13. IP:    1 ADDR: 1000 DATA:      111 ACC:      111; ld 1000
+  DEBUG   machine:simulation      14. IP:    2 ADDR: 1001 DATA:      111 ACC:      111; st 1001
+  DEBUG   machine:simulation      15. IP:    0 ADDR:    2 DATA:  (instr) ACC:      111; jmp 0
+  DEBUG   machine:simulation      16. IP:    1 ADDR: 1000 DATA:       10 ACC:       10; ld 1000
+  DEBUG   machine:simulation      17. IP:    2 ADDR: 1001 DATA:       10 ACC:       10; st 1001
+  DEBUG   machine:simulation      18. IP:    0 ADDR:    2 DATA:  (instr) ACC:       10; jmp 0
+  DEBUG   machine:simulation      19. IP:    1 ADDR: 1000 DATA:       10 ACC:       10; ld 1000
+  DEBUG   machine:simulation      20. IP:    2 ADDR: 1001 DATA:       10 ACC:       10; st 1001
+  DEBUG   machine:simulation      21. IP:    0 ADDR:    2 DATA:  (instr) ACC:       10; jmp 0
+  DEBUG   machine:simulation      22. IP:    1 ADDR: 1000 DATA:       87 ACC:       87; ld 1000
+  DEBUG   machine:simulation      23. IP:    2 ADDR: 1001 DATA:       87 ACC:       87; st 1001
+  DEBUG   machine:simulation      24. IP:    0 ADDR:    2 DATA:  (instr) ACC:       87; jmp 0
+  DEBUG   machine:simulation      25. IP:    1 ADDR: 1000 DATA:      111 ACC:      111; ld 1000
+  DEBUG   machine:simulation      26. IP:    2 ADDR: 1001 DATA:      111 ACC:      111; st 1001
+  DEBUG   machine:simulation      27. IP:    0 ADDR:    2 DATA:  (instr) ACC:      111; jmp 0
+  DEBUG   machine:simulation      28. IP:    1 ADDR: 1000 DATA:      114 ACC:      114; ld 1000
+  DEBUG   machine:simulation      29. IP:    2 ADDR: 1001 DATA:      114 ACC:      114; st 1001
+  DEBUG   machine:simulation      30. IP:    0 ADDR:    2 DATA:  (instr) ACC:      114; jmp 0
+  DEBUG   machine:simulation      31. IP:    1 ADDR: 1000 DATA:      108 ACC:      108; ld 1000
+  DEBUG   machine:simulation      32. IP:    2 ADDR: 1001 DATA:      108 ACC:      108; st 1001
+  DEBUG   machine:simulation      33. IP:    0 ADDR:    2 DATA:  (instr) ACC:      108; jmp 0
+  DEBUG   machine:simulation      34. IP:    1 ADDR: 1000 DATA:      100 ACC:      100; ld 1000
+  DEBUG   machine:simulation      35. IP:    2 ADDR: 1001 DATA:      100 ACC:      100; st 1001
+  DEBUG   machine:simulation      36. IP:    0 ADDR:    2 DATA:  (instr) ACC:      100; jmp 0
+  DEBUG   machine:simulation      37. IP:    1 ADDR: 1000 DATA:  (instr) ACC:        0; ld 1000
+  INFO    machine:simulation    output_buffer: 'Hello\n\nWorld'
+
+

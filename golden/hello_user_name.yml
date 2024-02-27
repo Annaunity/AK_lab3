@@ -1,0 +1,193 @@
+in_source: |-
+  ; Запросить имя пользователя (на одной строке) и поприветствовать его
+  ; Данный пример - смесь примеров hello и cat.
+
+              ; вычисляем максимальный адрес
+              ld ptr
+              add message
+              st limit
+            
+  _loop:      ; если указатель вышел за пределы строки, выходим из цикла
+              ld ptr
+              sub limit
+              jns _break
+
+              ; инкрементируем адрес
+              ld ptr
+              add const1
+              st ptr
+
+              ; выводим символ
+              ldi ptr
+              st OUT
+
+              jmp _loop
+  _break:
+
+  _cat:       ld IN
+              sub const10
+              jz _break_cat
+              add const10
+              st OUT
+              jmp _cat
+  _break_cat: 
+
+              ld const33
+              st OUT
+              hlt
+
+  message:    string "Hello, "
+  ptr:        data message
+  limit:      data 0
+  const1:     data 1
+  const10:    data 10 ; ascii \n
+  const33:    data 33 ; ascii !
+in_stdin: |
+  Alice
+out_code: |-
+  [{"opcode": "ld", "operand": 29},
+   {"opcode": "add", "operand": 21},
+   {"opcode": "st", "operand": 30},
+   {"opcode": "ld", "operand": 29},
+   {"opcode": "sub", "operand": 30},
+   {"opcode": "jns", "operand": 12},
+   {"opcode": "ld", "operand": 29},
+   {"opcode": "add", "operand": 31},
+   {"opcode": "st", "operand": 29},
+   {"opcode": "ldi", "operand": 29},
+   {"opcode": "st", "operand": 1001},
+   {"opcode": "jmp", "operand": 3},
+   {"opcode": "ld", "operand": 1000},
+   {"opcode": "sub", "operand": 32},
+   {"opcode": "jz", "operand": 18},
+   {"opcode": "add", "operand": 32},
+   {"opcode": "st", "operand": 1001},
+   {"opcode": "jmp", "operand": 12},
+   {"opcode": "ld", "operand": 33},
+   {"opcode": "st", "operand": 1001},
+   {"opcode": "hlt", "operand": 0},
+   {"opcode": "data", "operand": 7},
+   {"opcode": "data", "operand": 72},
+   {"opcode": "data", "operand": 101},
+   {"opcode": "data", "operand": 108},
+   {"opcode": "data", "operand": 108},
+   {"opcode": "data", "operand": 111},
+   {"opcode": "data", "operand": 44},
+   {"opcode": "data", "operand": 32},
+   {"opcode": "data", "operand": 21},
+   {"opcode": "data", "operand": 0},
+   {"opcode": "data", "operand": 1},
+   {"opcode": "data", "operand": 10},
+   {"opcode": "data", "operand": 33}]
+out_stdout: |
+  source LoC: 43 code instr: 34
+  ============================================================
+out_log: |
+  DEBUG   machine:simulation       1. IP:    1 ADDR:   29 DATA:       21 ACC:       21; ld 29
+  DEBUG   machine:simulation       2. IP:    2 ADDR:   21 DATA:        7 ACC:       28; add 21
+  DEBUG   machine:simulation       3. IP:    3 ADDR:   30 DATA:       28 ACC:       28; st 30
+  DEBUG   machine:simulation       4. IP:    4 ADDR:   29 DATA:       21 ACC:       21; ld 29
+  DEBUG   machine:simulation       5. IP:    5 ADDR:   30 DATA:       28 ACC:       -7; sub 30
+  DEBUG   machine:simulation       6. IP:    6 ADDR:    5 DATA:  (instr) ACC:       -7; jns 12
+  DEBUG   machine:simulation       7. IP:    7 ADDR:   29 DATA:       21 ACC:       21; ld 29
+  DEBUG   machine:simulation       8. IP:    8 ADDR:   31 DATA:        1 ACC:       22; add 31
+  DEBUG   machine:simulation       9. IP:    9 ADDR:   29 DATA:       22 ACC:       22; st 29
+  DEBUG   machine:simulation      10. IP:   10 ADDR:   22 DATA:       72 ACC:       72; ldi 29
+  DEBUG   machine:simulation      11. IP:   11 ADDR: 1001 DATA:       72 ACC:       72; st 1001
+  DEBUG   machine:simulation      12. IP:    3 ADDR:   11 DATA:  (instr) ACC:       72; jmp 3
+  DEBUG   machine:simulation      13. IP:    4 ADDR:   29 DATA:       22 ACC:       22; ld 29
+  DEBUG   machine:simulation      14. IP:    5 ADDR:   30 DATA:       28 ACC:       -6; sub 30
+  DEBUG   machine:simulation      15. IP:    6 ADDR:    5 DATA:  (instr) ACC:       -6; jns 12
+  DEBUG   machine:simulation      16. IP:    7 ADDR:   29 DATA:       22 ACC:       22; ld 29
+  DEBUG   machine:simulation      17. IP:    8 ADDR:   31 DATA:        1 ACC:       23; add 31
+  DEBUG   machine:simulation      18. IP:    9 ADDR:   29 DATA:       23 ACC:       23; st 29
+  DEBUG   machine:simulation      19. IP:   10 ADDR:   23 DATA:      101 ACC:      101; ldi 29
+  DEBUG   machine:simulation      20. IP:   11 ADDR: 1001 DATA:      101 ACC:      101; st 1001
+  DEBUG   machine:simulation      21. IP:    3 ADDR:   11 DATA:  (instr) ACC:      101; jmp 3
+  DEBUG   machine:simulation      22. IP:    4 ADDR:   29 DATA:       23 ACC:       23; ld 29
+  DEBUG   machine:simulation      23. IP:    5 ADDR:   30 DATA:       28 ACC:       -5; sub 30
+  DEBUG   machine:simulation      24. IP:    6 ADDR:    5 DATA:  (instr) ACC:       -5; jns 12
+  DEBUG   machine:simulation      25. IP:    7 ADDR:   29 DATA:       23 ACC:       23; ld 29
+  DEBUG   machine:simulation      26. IP:    8 ADDR:   31 DATA:        1 ACC:       24; add 31
+  DEBUG   machine:simulation      27. IP:    9 ADDR:   29 DATA:       24 ACC:       24; st 29
+  DEBUG   machine:simulation      28. IP:   10 ADDR:   24 DATA:      108 ACC:      108; ldi 29
+  DEBUG   machine:simulation      29. IP:   11 ADDR: 1001 DATA:      108 ACC:      108; st 1001
+  DEBUG   machine:simulation      30. IP:    3 ADDR:   11 DATA:  (instr) ACC:      108; jmp 3
+  DEBUG   machine:simulation      31. IP:    4 ADDR:   29 DATA:       24 ACC:       24; ld 29
+  DEBUG   machine:simulation      32. IP:    5 ADDR:   30 DATA:       28 ACC:       -4; sub 30
+  DEBUG   machine:simulation      33. IP:    6 ADDR:    5 DATA:  (instr) ACC:       -4; jns 12
+  DEBUG   machine:simulation      34. IP:    7 ADDR:   29 DATA:       24 ACC:       24; ld 29
+  DEBUG   machine:simulation      35. IP:    8 ADDR:   31 DATA:        1 ACC:       25; add 31
+  DEBUG   machine:simulation      36. IP:    9 ADDR:   29 DATA:       25 ACC:       25; st 29
+  DEBUG   machine:simulation      37. IP:   10 ADDR:   25 DATA:      108 ACC:      108; ldi 29
+  DEBUG   machine:simulation      38. IP:   11 ADDR: 1001 DATA:      108 ACC:      108; st 1001
+  DEBUG   machine:simulation      39. IP:    3 ADDR:   11 DATA:  (instr) ACC:      108; jmp 3
+  DEBUG   machine:simulation      40. IP:    4 ADDR:   29 DATA:       25 ACC:       25; ld 29
+  DEBUG   machine:simulation      41. IP:    5 ADDR:   30 DATA:       28 ACC:       -3; sub 30
+  DEBUG   machine:simulation      42. IP:    6 ADDR:    5 DATA:  (instr) ACC:       -3; jns 12
+  DEBUG   machine:simulation      43. IP:    7 ADDR:   29 DATA:       25 ACC:       25; ld 29
+  DEBUG   machine:simulation      44. IP:    8 ADDR:   31 DATA:        1 ACC:       26; add 31
+  DEBUG   machine:simulation      45. IP:    9 ADDR:   29 DATA:       26 ACC:       26; st 29
+  DEBUG   machine:simulation      46. IP:   10 ADDR:   26 DATA:      111 ACC:      111; ldi 29
+  DEBUG   machine:simulation      47. IP:   11 ADDR: 1001 DATA:      111 ACC:      111; st 1001
+  DEBUG   machine:simulation      48. IP:    3 ADDR:   11 DATA:  (instr) ACC:      111; jmp 3
+  DEBUG   machine:simulation      49. IP:    4 ADDR:   29 DATA:       26 ACC:       26; ld 29
+  DEBUG   machine:simulation      50. IP:    5 ADDR:   30 DATA:       28 ACC:       -2; sub 30
+  DEBUG   machine:simulation      51. IP:    6 ADDR:    5 DATA:  (instr) ACC:       -2; jns 12
+  DEBUG   machine:simulation      52. IP:    7 ADDR:   29 DATA:       26 ACC:       26; ld 29
+  DEBUG   machine:simulation      53. IP:    8 ADDR:   31 DATA:        1 ACC:       27; add 31
+  DEBUG   machine:simulation      54. IP:    9 ADDR:   29 DATA:       27 ACC:       27; st 29
+  DEBUG   machine:simulation      55. IP:   10 ADDR:   27 DATA:       44 ACC:       44; ldi 29
+  DEBUG   machine:simulation      56. IP:   11 ADDR: 1001 DATA:       44 ACC:       44; st 1001
+  DEBUG   machine:simulation      57. IP:    3 ADDR:   11 DATA:  (instr) ACC:       44; jmp 3
+  DEBUG   machine:simulation      58. IP:    4 ADDR:   29 DATA:       27 ACC:       27; ld 29
+  DEBUG   machine:simulation      59. IP:    5 ADDR:   30 DATA:       28 ACC:       -1; sub 30
+  DEBUG   machine:simulation      60. IP:    6 ADDR:    5 DATA:  (instr) ACC:       -1; jns 12
+  DEBUG   machine:simulation      61. IP:    7 ADDR:   29 DATA:       27 ACC:       27; ld 29
+  DEBUG   machine:simulation      62. IP:    8 ADDR:   31 DATA:        1 ACC:       28; add 31
+  DEBUG   machine:simulation      63. IP:    9 ADDR:   29 DATA:       28 ACC:       28; st 29
+  DEBUG   machine:simulation      64. IP:   10 ADDR:   28 DATA:       32 ACC:       32; ldi 29
+  DEBUG   machine:simulation      65. IP:   11 ADDR: 1001 DATA:       32 ACC:       32; st 1001
+  DEBUG   machine:simulation      66. IP:    3 ADDR:   11 DATA:  (instr) ACC:       32; jmp 3
+  DEBUG   machine:simulation      67. IP:    4 ADDR:   29 DATA:       28 ACC:       28; ld 29
+  DEBUG   machine:simulation      68. IP:    5 ADDR:   30 DATA:       28 ACC:        0; sub 30
+  DEBUG   machine:simulation      69. IP:   12 ADDR:    5 DATA:  (instr) ACC:        0; jns 12
+  DEBUG   machine:simulation      70. IP:   13 ADDR: 1000 DATA:       65 ACC:       65; ld 1000
+  DEBUG   machine:simulation      71. IP:   14 ADDR:   32 DATA:       10 ACC:       55; sub 32
+  DEBUG   machine:simulation      72. IP:   15 ADDR:   14 DATA:  (instr) ACC:       55; jz 18
+  DEBUG   machine:simulation      73. IP:   16 ADDR:   32 DATA:       10 ACC:       65; add 32
+  DEBUG   machine:simulation      74. IP:   17 ADDR: 1001 DATA:       65 ACC:       65; st 1001
+  DEBUG   machine:simulation      75. IP:   12 ADDR:   17 DATA:  (instr) ACC:       65; jmp 12
+  DEBUG   machine:simulation      76. IP:   13 ADDR: 1000 DATA:      108 ACC:      108; ld 1000
+  DEBUG   machine:simulation      77. IP:   14 ADDR:   32 DATA:       10 ACC:       98; sub 32
+  DEBUG   machine:simulation      78. IP:   15 ADDR:   14 DATA:  (instr) ACC:       98; jz 18
+  DEBUG   machine:simulation      79. IP:   16 ADDR:   32 DATA:       10 ACC:      108; add 32
+  DEBUG   machine:simulation      80. IP:   17 ADDR: 1001 DATA:      108 ACC:      108; st 1001
+  DEBUG   machine:simulation      81. IP:   12 ADDR:   17 DATA:  (instr) ACC:      108; jmp 12
+  DEBUG   machine:simulation      82. IP:   13 ADDR: 1000 DATA:      105 ACC:      105; ld 1000
+  DEBUG   machine:simulation      83. IP:   14 ADDR:   32 DATA:       10 ACC:       95; sub 32
+  DEBUG   machine:simulation      84. IP:   15 ADDR:   14 DATA:  (instr) ACC:       95; jz 18
+  DEBUG   machine:simulation      85. IP:   16 ADDR:   32 DATA:       10 ACC:      105; add 32
+  DEBUG   machine:simulation      86. IP:   17 ADDR: 1001 DATA:      105 ACC:      105; st 1001
+  DEBUG   machine:simulation      87. IP:   12 ADDR:   17 DATA:  (instr) ACC:      105; jmp 12
+  DEBUG   machine:simulation      88. IP:   13 ADDR: 1000 DATA:       99 ACC:       99; ld 1000
+  DEBUG   machine:simulation      89. IP:   14 ADDR:   32 DATA:       10 ACC:       89; sub 32
+  DEBUG   machine:simulation      90. IP:   15 ADDR:   14 DATA:  (instr) ACC:       89; jz 18
+  DEBUG   machine:simulation      91. IP:   16 ADDR:   32 DATA:       10 ACC:       99; add 32
+  DEBUG   machine:simulation      92. IP:   17 ADDR: 1001 DATA:       99 ACC:       99; st 1001
+  DEBUG   machine:simulation      93. IP:   12 ADDR:   17 DATA:  (instr) ACC:       99; jmp 12
+  DEBUG   machine:simulation      94. IP:   13 ADDR: 1000 DATA:      101 ACC:      101; ld 1000
+  DEBUG   machine:simulation      95. IP:   14 ADDR:   32 DATA:       10 ACC:       91; sub 32
+  DEBUG   machine:simulation      96. IP:   15 ADDR:   14 DATA:  (instr) ACC:       91; jz 18
+  DEBUG   machine:simulation      97. IP:   16 ADDR:   32 DATA:       10 ACC:      101; add 32
+  DEBUG   machine:simulation      98. IP:   17 ADDR: 1001 DATA:      101 ACC:      101; st 1001
+  DEBUG   machine:simulation      99. IP:   12 ADDR:   17 DATA:  (instr) ACC:      101; jmp 12
+  DEBUG   machine:simulation     100. IP:   13 ADDR: 1000 DATA:       10 ACC:       10; ld 1000
+  DEBUG   machine:simulation     101. IP:   14 ADDR:   32 DATA:       10 ACC:        0; sub 32
+  DEBUG   machine:simulation     102. IP:   18 ADDR:   14 DATA:  (instr) ACC:        0; jz 18
+  DEBUG   machine:simulation     103. IP:   19 ADDR:   33 DATA:       33 ACC:       33; ld 33
+  DEBUG   machine:simulation     104. IP:   20 ADDR: 1001 DATA:       33 ACC:       33; st 1001
+  DEBUG   machine:simulation     105. IP:   21 ADDR:   20 DATA:  (instr) ACC:       33; hlt 0
+  INFO    machine:simulation    output_buffer: 'Hello, Alice!'
+
+
